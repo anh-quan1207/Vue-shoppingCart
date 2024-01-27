@@ -1,15 +1,30 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <header>
+    <TheHeader :cardList="carList"></TheHeader>
+  </header>
+  <main class="mt-5 container">
+    <ProductList @handle-buy="handleBuy"></ProductList>
+  </main>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import TheHeader from "./components/TheHeader.vue"
+import ProductList from "./components/ProductList.vue"
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    TheHeader, ProductList
+  },
+  data() {
+    return {
+      carList: [],
+    }
+  },
+  methods: {
+    handleBuy(productItem) {
+      // const index = this.carList.findIndex(cart => cart.id === productItem.id)
+      this.carList.push(productItem);
+    }
   }
 }
 </script>
@@ -21,6 +36,5 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
