@@ -5,6 +5,16 @@
         type: Array,
       }
     },
+    computed: {
+      sumMoney() {
+        return this.cardList.reduce((sum, card) => sum += card.amount * card.price, 0);
+      }
+    },
+    methods: {
+      handleDelete(card) {
+        this.$emit("handleDelete", card);
+      }
+    }
   }
 </script>
 
@@ -28,20 +38,29 @@
       <td>{{ card.price }}</td>
       <td>{{ card.quantityInStock }}</td>
       <td>
-        <button class="btn btn-success">
-          <i class="fa fa-arrow-up"></i>
-        </button>
-        <span class="mx-2">1</span>
-        <button class="btn btn-success">
-          <i class="fa fa-arrow-down"></i>
-        </button>
+<!--        <button class="btn btn-success">-->
+<!--          <i class="fa fa-arrow-up"></i>-->
+<!--        </button>-->
+        <span class="mx-2">{{ card.amount }}</span>
+<!--        <button class="btn btn-success">-->
+<!--          <i class="fa fa-arrow-down"></i>-->
+<!--        </button>-->
       </td>
-      <td>Total</td>
+      <td>{{ card.amount * card.price }}</td>
       <td>
-        <button class="btn btn-danger">
+        <button class="btn btn-danger" @click="handleDelete(card)">
           <i class="fa fa-trash"></i>
         </button>
       </td>
+    </tr>
+    <tr>
+      <td scope="row">Total</td>
+      <td scope="row"></td>
+      <td scope="row"></td>
+      <td scope="row"></td>
+      <td scope="row"></td>
+      <td scope="row">{{ sumMoney }}</td>
+      <td scope="row"></td>
     </tr>
     </tbody>
   </table>

@@ -18,6 +18,9 @@ import CardList from "./CardList.vue"
       },
       handleCloseModalCardList() {
         this.isOpenModalCartList = false
+      },
+      handleDelete(card) {
+        this.$emit("handleDelete", card);
       }
     },
   }
@@ -68,7 +71,7 @@ import CardList from "./CardList.vue"
   <teleport to="#app">
     <AppModal :isOpen="isOpenModalCartList" :handleCloseModal="handleCloseModalCardList" >
       <section>
-        <CardList :cardList="cardList"></CardList>
+        <CardList :cardList="cardList" @handleDelete="handleDelete"></CardList>
       </section>
     </AppModal>
   </teleport>

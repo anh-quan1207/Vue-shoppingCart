@@ -1,6 +1,6 @@
 <template>
   <header>
-    <TheHeader :cardList="carList"></TheHeader>
+    <TheHeader :cardList="carList" @handleDelete="handleDelete"></TheHeader>
   </header>
   <main class="mt-5 container">
     <ProductList @handle-buy="handleBuy"></ProductList>
@@ -22,8 +22,16 @@ export default {
   },
   methods: {
     handleBuy(productItem) {
-      // const index = this.carList.findIndex(cart => cart.id === productItem.id)
-      this.carList.push(productItem);
+      const index = this.carList.findIndex(cart => cart.id === productItem.id);
+      if (index !== -1) {
+        this.carList[index].amount += 1;
+      } else {
+        const newProductItem = {...productItem, amount: 1};
+        this.carList = [...this.carList, newProductItem];
+      }
+    },
+    handleDelete(card) {
+      this.carList = this.carList.filter(cardItem => cardItem.id !== card.id);
     }
   }
 }
